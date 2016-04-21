@@ -18,10 +18,34 @@ int main(int argc, const char * argv[]) {
 //    gameboard.putCoin('A', 4);
 
     // Vertical win
+//    gameboard.putCoin('A', 1);
+//    gameboard.putCoin('A', 1);
+//    gameboard.putCoin('A', 1);
+//    gameboard.putCoin('A', 1);
+
+//    // Diagonal win
+//    gameboard.putCoin('A', 1);
+//    gameboard.putCoin('B', 2);
+//    gameboard.putCoin('B', 3);
+//    gameboard.putCoin('A', 4);
+//    gameboard.putCoin('A', 1);
+//    gameboard.putCoin('B', 2);
+//    gameboard.putCoin('A', 3);
+//    gameboard.putCoin('B', 1);
+//    gameboard.putCoin('A', 2);
+//    gameboard.putCoin('A', 1);
+    
+    // Back Diagonal win
     gameboard.putCoin('A', 1);
-    gameboard.putCoin('A', 1);
-    gameboard.putCoin('A', 1);
-    gameboard.putCoin('A', 1);
+    gameboard.putCoin('B', 2);
+    gameboard.putCoin('B', 3);
+    gameboard.putCoin('A', 4);
+    gameboard.putCoin('A', 2);
+    gameboard.putCoin('B', 3);
+    gameboard.putCoin('A', 4);
+    gameboard.putCoin('A', 3);
+    gameboard.putCoin('B', 4);
+    gameboard.putCoin('A', 4);
     
     gameboard.printBoard();
 

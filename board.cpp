@@ -58,8 +58,10 @@ bool GameBoard::putCoin(char n, int col) {
 bool GameBoard::checkWin(int col, int row, char n) const {
    
     if (checkHorisontal(col, row, n) ||
-        checkVertical(col, row, n)) {
-        std::cout << "WIN" << std::endl;
+        checkVertical(col, row, n) ||
+        checkDiagonal(col, row, n) ||
+        checkBackDiagonal(col, row, n)) {
+        std::cout << "WIN " << n << std::endl;
         return true;
     }
     
@@ -109,6 +111,64 @@ bool GameBoard::checkVertical(int col, int row, char n) const {
     for(int i = 1; i < 4; i++) {
         if(row - i >= 0 &&
            board[row-i][col] == n) {
+            hits ++;
+        } else {
+            break;
+        }
+    }
+    
+    if (hits == 3) return true;
+    return false;
+}
+
+bool GameBoard::checkDiagonal(int col, int row, char n) const {
+    int hits = 0;
+    
+    // Diagonal down
+    for(int i = 1; i < 4; i++) {
+        if(row + i < board.size() &&
+           col + i < board.begin()->size() &&
+           board[row+i][col+i] == n) {
+            hits ++;
+        } else {
+            break;
+        }
+    }
+    
+    // Diagonal up
+    for(int i = 1; i < 4; i++) {
+        if(row - i >= 0 &&
+           col - i >= 0 &&
+           board[row-i][col-i] == n) {
+            hits ++;
+        } else {
+            break;
+        }
+    }
+    
+    if (hits == 3) return true;
+    return false;
+}
+
+bool GameBoard::checkBackDiagonal(int col, int row, char n) const {
+    int hits = 0;
+    
+    // Back Diagonal down
+    for(int i = 1; i < 4; i++) {
+        if(row - i >= 0 &&
+           col + i < board.begin()->size() &&
+           board[row-i][col+i] == n) {
+            hits ++;
+        } else {
+            break;
+        }
+    }
+    
+    // Back Diagonal up
+    for(int i = 1; i < 4; i++) {
+        if(row + i < board.size() &&
+           col - i >= 0 &&
+           board[row+i][col-i] == n) {
             hits ++;
         } else {
             break;

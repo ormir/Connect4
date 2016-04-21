@@ -16,9 +16,12 @@
 class GameBoard{
 private:
     std::vector<std::vector<char>> board;
+    
     bool checkWin(int, int, char) const;
     bool checkHorisontal(int, int, char) const;
     bool checkVertical(int, int, char) const;
+    bool checkDiagonal(int, int, char) const;
+    bool checkBackDiagonal(int, int, char) const;
 public:
     GameBoard(int,int);
     void printBoard() const;
