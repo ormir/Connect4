@@ -20,16 +20,19 @@ private:
 public:
     Player(const char&);
     void putCoin(int, GameBoard&);
+    ~Player();
 };
 
 class Human : public Player {
 public:
-    Human(const char&);    
+    Human(const char&);
+    virtual ~Human();
 };
 
 class Computer : public Player {
 public:
     Computer(const char&);
+    virtual ~Computer();
 };
 
 #endif /* player_hpp */

@@ -15,8 +15,14 @@ void Player::putCoin(int col, GameBoard& board) {
     board.putCoin(name, col);
 }
 
-Human::Human(const char& n):
+Player::~Player() {}
+
+Human::Human(const char &n):
 Player(n) {}
 
-Computer::Computer(const char & n):
+Human::~Human(){}
+
+Computer::Computer(const char &n):
 Player(n) {}
+
+Computer::~Computer() {}
