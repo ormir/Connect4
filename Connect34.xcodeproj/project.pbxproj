@@ -63,11 +63,11 @@
 		0CA584421CC9294600990C6F /* Connect34 */ = {
 			isa = PBXGroup;
 			children = (
+				0CA584431CC9294600990C6F /* main.cpp */,
 				0C028A931CC92B5C00FDED21 /* board.cpp */,
 				0C028A941CC92B5C00FDED21 /* board.hpp */,
 				0C028A951CC92B5C00FDED21 /* player.cpp */,
 				0C028A961CC92B5C00FDED21 /* player.hpp */,
-				0CA584431CC9294600990C6F /* main.cpp */,
 			);
 			path = Connect34;
 			sourceTree = "<group>";
