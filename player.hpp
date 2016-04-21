@@ -12,13 +12,24 @@
 #include <stdio.h>
 #include <vector>
 #include <iostream>
+#include "board.hpp"
 
 class Player{
 private:
     char name;
 public:
-    Player(char);
-    void turn();
+    Player(const char&);
+    void putCoin(int, GameBoard&);
+};
+
+class Human : public Player {
+public:
+    Human(const char&);    
+};
+
+class Computer : public Player {
+public:
+    Computer(const char&);
 };
 
 #endif /* player_hpp */

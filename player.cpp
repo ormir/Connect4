@@ -8,6 +8,15 @@
 
 #include "player.hpp"
 
-Player::Player(char n):
-name(n)
-{}
+Player::Player(const char &n):
+name(n) {}
+
+void Player::putCoin(int col, GameBoard& board) {
+    board.putCoin(name, col);
+}
+
+Human::Human(const char& n):
+Player(n) {}
+
+Computer::Computer(const char & n):
+Player(n) {}
