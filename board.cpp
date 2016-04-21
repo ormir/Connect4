@@ -56,52 +56,9 @@ bool GameBoard::putCoin(char n, int col) {
 }
 
 bool GameBoard::checkWin(int col, int row, char n) const {
-//    int hhits = 0; // horisontal hits
-    int vhits = 0; // vertical hits
-//
-//    // Horisontal right Check
-//    for(int i = 1; i < 4; i++) {
-//        if(col + i < board.begin()->size() &&
-//           board[row][col+i] == n) {
-//            hhits ++;
-//        } else {
-//            break;
-//        }
-//    }
-//    
-//    // Horisontal left Check
-//    for(int i = 1; i < 4; i++) {
-//        if(col - i >= 0 &&
-//           board[row][col-i] == n) {
-//            hhits ++;
-//        } else {
-//            break;
-//        }
-//    }
-    
-    // Vertical down
-    for(int i = 1; i < 4; i++) {
-        if(row + i < board.size() &&
-           board[row+i][col] == n) {
-            vhits ++;
-        } else {
-            break;
-        }
-    }
-    
-    // Vertical up
-    for(int i = 1; i < 4; i++) {
-        if(row - i >= 0 &&
-           board[row-i][col] == n) {
-            vhits ++;
-        } else {
-            break;
-        }
-    }
-    
-    
+   
     if (checkHorisontal(col, row, n) ||
-        vhits ==3) {
+        checkVertical(col, row, n)) {
         std::cout << "WIN" << std::endl;
         return true;
     }
@@ -132,10 +89,32 @@ bool GameBoard::checkHorisontal(int col, int row, char n) const {
         }
     }
     
-    if (hits ==3) {
-        return true;
-    }
-
+    if (hits == 3) return true;
     return false;
 }
 
+bool GameBoard::checkVertical(int col, int row, char n) const {
+    int hits = 0;
+    // Vertical down
+    for(int i = 1; i < 4; i++) {
+        if(row + i < board.size() &&
+           board[row+i][col] == n) {
+            hits ++;
+        } else {
+            break;
+        }
+    }
+    
+    // Vertical up
+    for(int i = 1; i < 4; i++) {
+        if(row - i >= 0 &&
+           board[row-i][col] == n) {
+            hits ++;
+        } else {
+            break;
+        }
+    }
+    
+    if (hits == 3) return true;
+    return false;
+}

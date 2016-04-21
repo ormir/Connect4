@@ -11,10 +11,17 @@
 int main(int argc, const char * argv[]) {
     GameBoard gameboard(8,5);
     
+    // Horisontal win
+//    gameboard.putCoin('A', 1);
+//    gameboard.putCoin('A', 2);
+//    gameboard.putCoin('A', 3);
+//    gameboard.putCoin('A', 4);
+
+    // Vertical win
     gameboard.putCoin('A', 1);
-    gameboard.putCoin('A', 2);
-    gameboard.putCoin('A', 3);
-    gameboard.putCoin('A', 4);
+    gameboard.putCoin('A', 1);
+    gameboard.putCoin('A', 1);
+    gameboard.putCoin('A', 1);
     
     gameboard.printBoard();
 
