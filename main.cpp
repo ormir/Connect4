@@ -18,7 +18,5 @@ int main(int argc, const char * argv[]) {
     
     gameboard.printBoard();
 
-    
-    
     return 0;
 }
