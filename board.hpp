@@ -19,7 +19,7 @@ private:
 public:
     GameBoard(int,int);
     void printBoard() const;
-    void putCoin(char,int);
+    bool putCoin(char,int);
 };
 
 #endif /* board_hpp */

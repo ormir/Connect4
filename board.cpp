@@ -27,19 +27,19 @@ void GameBoard::printBoard() const {
     std::cout << std::endl;
 }
 
-void GameBoard::putCoin(char n, int col){
+bool GameBoard::putCoin(char n, int col) {
     col--;
-    int size = board.begin()->size();
-//    if(col > size || col < 0){
-//        std::cout << "Error, try again" << std::endl;
-//    }
+    if (col >  board.begin()->size() || col < 0) {
+        std::cout << "Colum " << col << " doesn't exist" << std::endl;
+        return false;
+    } else if ((*(board.begin()))[col] != '.'){
+        std::cout << "Column full" << std::endl;
+        return false;
+    }
   
     //Zelle gecacht im Pointer previous
     for(auto row = board.begin(); row != board.end(); row++){
-        if((*row)[col] != '.' && row == board.begin()) {
-            std::cout << "Column full" << std::endl;
-            break;
-        } else if ((*row)[col]!='.'){
+        if ((*row)[col]!='.'){
             (*(--row))[col] = n;
             break;
         }
@@ -47,10 +47,8 @@ void GameBoard::putCoin(char n, int col){
         if(row == --board.end()){
             (*row)[col] = n;
         }
-        
-        
     }
-    
+    return true;
 }
 
 
