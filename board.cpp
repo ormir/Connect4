@@ -29,6 +29,7 @@ void GameBoard::printBoard() const {
 
 bool GameBoard::putCoin(char n, int col) {
     col--;
+    int coinRow = 0;
     if (col >  board.begin()->size() || col < 0) {
         std::cout << "Colum " << col << " doesn't exist" << std::endl;
         return false;
@@ -47,9 +48,94 @@ bool GameBoard::putCoin(char n, int col) {
         if(row == --board.end()){
             (*row)[col] = n;
         }
+        coinRow++;
     }
+    
+    checkWin(col, --coinRow, n);
     return true;
 }
 
+bool GameBoard::checkWin(int col, int row, char n) const {
+//    int hhits = 0; // horisontal hits
+    int vhits = 0; // vertical hits
+//
+//    // Horisontal right Check
+//    for(int i = 1; i < 4; i++) {
+//        if(col + i < board.begin()->size() &&
+//           board[row][col+i] == n) {
+//            hhits ++;
+//        } else {
+//            break;
+//        }
+//    }
+//    
+//    // Horisontal left Check
+//    for(int i = 1; i < 4; i++) {
+//        if(col - i >= 0 &&
+//           board[row][col-i] == n) {
+//            hhits ++;
+//        } else {
+//            break;
+//        }
+//    }
+    
+    // Vertical down
+    for(int i = 1; i < 4; i++) {
+        if(row + i < board.size() &&
+           board[row+i][col] == n) {
+            vhits ++;
+        } else {
+            break;
+        }
+    }
+    
+    // Vertical up
+    for(int i = 1; i < 4; i++) {
+        if(row - i >= 0 &&
+           board[row-i][col] == n) {
+            vhits ++;
+        } else {
+            break;
+        }
+    }
+    
+    
+    if (checkHorisontal(col, row, n) ||
+        vhits ==3) {
+        std::cout << "WIN" << std::endl;
+        return true;
+    }
+    
+    return false;
+}
 
+bool GameBoard::checkHorisontal(int col, int row, char n) const {
+    int hits = 0; // horisontal hits
+    
+    // Horisontal right Check
+    for(int i = 1; i < 4; i++) {
+        if(col + i < board.begin()->size() &&
+           board[row][col+i] == n) {
+            hits ++;
+        } else {
+            break;
+        }
+    }
+    
+    // Horisontal left Check
+    for(int i = 1; i < 4; i++) {
+        if(col - i >= 0 &&
+           board[row][col-i] == n) {
+            hits ++;
+        } else {
+            break;
+        }
+    }
+    
+    if (hits ==3) {
+        return true;
+    }
+
+    return false;
+}
 
