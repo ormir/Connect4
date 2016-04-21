@@ -6,8 +6,13 @@
 //
 
 #include <iostream>
+#include "board.hpp"
 
 int main(int argc, const char * argv[]) {
+    GameBoard gameboard(8,5);
+    
+    gameboard.printboard();
+    
     
     return 0;
 }
