@@ -33,18 +33,18 @@ void GameBoard::putCoin(char n, int col){
 //    if(col > size || col < 0){
 //        std::cout << "Error, try again" << std::endl;
 //    }
-//test
+
     //Zelle gecacht im Pointer previous
     for(auto row = board.begin(); row != board.end(); row++){
         if((*row)[col] != '.' && row == board.begin()) {
             std::cout << "Column full" << std::endl;
             break;
         } else if ((*row)[col]!='.'){
-            (*(row--))[col] = n;
+            (*(--row))[col] = n;
             break;
         }
         
-        if(row == board.end()){
+        if(row == --board.end()){
             (*row)[col] = n;
         }
         
