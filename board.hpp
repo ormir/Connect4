@@ -18,9 +18,8 @@ private:
     std::vector<std::vector<char>> board;
 public:
     GameBoard(int,int);
-    void printboard() const;
+    void printBoard() const;
+    void putCoin(char,int);
 };
-
-
 
 #endif /* board_hpp */

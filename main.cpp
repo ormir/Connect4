@@ -11,7 +11,9 @@
 int main(int argc, const char * argv[]) {
     GameBoard gameboard(8,5);
     
-    gameboard.printboard();
+    gameboard.putCoin('A', 3);
+    gameboard.printBoard();
+
     
     
     return 0;
