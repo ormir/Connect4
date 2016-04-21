@@ -7,17 +7,58 @@
 
 #include <iostream>
 #include "board.hpp"
+#include "player.hpp"
 
 int main(int argc, const char * argv[]) {
     GameBoard gameboard(8,5);
+    Player *p1 = NULL;
+    Player *p2 = NULL;
+    char type, name;
     
-    // Horisontal win
+    // Set players
+    std::cout << "First player is: (h/c) ";
+    std::cin >> type;
+    std::cout << "First player name is: ";
+
+    std::cin >> name;
+    
+    if (type == 'h') {
+        p1 = new Human(name);
+    } else if (type == 'c') {
+        p1 = new Computer(name);
+    }
+    
+    std::cout << "Second player is: (h/c) ";
+    std::cin >> type;
+    std::cout << "Second player name is: ";
+    std::cin >> name;
+    
+    if (type == 'h') {
+        p2 = new Human(name);
+    } else if (type == 'c') {
+        p2 = new Computer(name);
+    }
+    
+    while (true) {
+        p1->putCoin(gameboard);
+        p2->putCoin(gameboard);
+        gameboard.printBoard();
+    }
+    
+    delete p1;
+    delete p2;
+    
+    return 0;
+}
+
+
+// Horisontal win
 //    gameboard.putCoin('A', 1);
 //    gameboard.putCoin('A', 2);
 //    gameboard.putCoin('A', 3);
 //    gameboard.putCoin('A', 4);
 
-    // Vertical win
+// Vertical win
 //    gameboard.putCoin('A', 1);
 //    gameboard.putCoin('A', 1);
 //    gameboard.putCoin('A', 1);
@@ -34,8 +75,8 @@ int main(int argc, const char * argv[]) {
 //    gameboard.putCoin('B', 1);
 //    gameboard.putCoin('A', 2);
 //    gameboard.putCoin('A', 1);
-    
-    // Back Diagonal win
+
+// Back Diagonal win
 //    gameboard.putCoin('A', 1);
 //    gameboard.putCoin('B', 2);
 //    gameboard.putCoin('B', 3);
@@ -46,8 +87,3 @@ int main(int argc, const char * argv[]) {
 //    gameboard.putCoin('A', 3);
 //    gameboard.putCoin('B', 4);
 //    gameboard.putCoin('A', 4);
-    
-    gameboard.printBoard();
-
-    return 0;
-}

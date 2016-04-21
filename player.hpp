@@ -15,24 +15,23 @@
 #include "board.hpp"
 
 class Player{
-private:
+protected:
     char name;
 public:
     Player(const char&);
-    void putCoin(int, GameBoard&);
-    ~Player();
+    void putCoin(GameBoard&);
+    virtual ~Player();
 };
 
 class Human : public Player {
 public:
     Human(const char&);
-    virtual ~Human();
 };
 
 class Computer : public Player {
 public:
     Computer(const char&);
-    virtual ~Computer();
+    void putCoin(GameBoard&);
 };
 
 #endif /* player_hpp */

@@ -55,6 +55,10 @@ bool GameBoard::putCoin(char n, int col) {
     return true;
 }
 
+int GameBoard::getWidth() const{
+    return board.begin()->size();
+}
+
 bool GameBoard::checkWin(int col, int row, char n) const {
    
     if (checkHorisontal(col, row, n) ||

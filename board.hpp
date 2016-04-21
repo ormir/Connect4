@@ -26,7 +26,7 @@ public:
     GameBoard(int,int);
     void printBoard() const;
     bool putCoin(char,int);
-    
+    int getWidth() const;
 };
 
 #endif /* board_hpp */

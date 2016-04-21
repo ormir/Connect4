@@ -11,18 +11,24 @@
 Player::Player(const char &n):
 name(n) {}
 
-void Player::putCoin(int col, GameBoard& board) {
+void Player::putCoin(GameBoard& board) {
+    int col = -1;
+    std::cout << name << ": ";
+    std::cin >> col;
     board.putCoin(name, col);
 }
 
-Player::~Player() {}
+Player::~Player() {
+    std::cout << "Deleted player" << std::endl;
+}
 
 Human::Human(const char &n):
 Player(n) {}
 
-Human::~Human(){}
-
 Computer::Computer(const char &n):
 Player(n) {}
 
-Computer::~Computer() {}
+void Computer::putCoin(GameBoard &board) {
+    // AI
+    board.putCoin(name, std::rand()%board.getWidth());
+}
