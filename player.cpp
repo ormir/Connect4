@@ -2,8 +2,8 @@
 //  player.cpp
 //  Connect4
 //
-//  Created by dolly sharma on 4/21/16.
-//  Copyright © 2016 dolly sharma. All rights reserved.
+//  Created by Nitika Kumar, Ormir Gjurgjej on 4/21/16.
+//  Copyright © 2016. All rights reserved.
 //
 
 #include "player.hpp"
@@ -39,9 +39,9 @@ bool Computer::putCoin(GameBoard &board) {
     std::vector<int> posCol; // possible colms
 
     for(int col = 0; col < board.getWidth(); col++) {
-        int colMax = board.putCoin(name, ++col, false);
+        int colMax = board.putCoin(name, col+1, false);
         if (bestMax < colMax) {
-            posCol.empty();
+            posCol.clear();
             posCol.push_back(col);
             bestMax = colMax;
         } else if (bestMax >= 0 && bestMax == colMax) {

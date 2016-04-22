@@ -2,7 +2,8 @@
 //  main.cpp
 //  Connect4
 //
-//  Copyright © 2016 Ormir Gjurgjejt, Nitika Kumar. All rights reserved.
+//  Created by Nitika Kumar, Ormir Gjurgjej on 4/21/16.
+//  Copyright © 2016. All rights reserved.
 //
 
 #include <iostream>

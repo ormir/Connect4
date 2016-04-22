@@ -2,8 +2,8 @@
 //  board.hpp
 //  Connect4
 //
-//  Created by dolly sharma on 4/20/16.
-//  Copyright © 2016 dolly sharma. All rights reserved.
+//  Created by Nitika Kumar, Ormir Gjurgjej on 4/21/16.
+//  Copyright © 2016. All rights reserved.
 //
 
 #ifndef board_hpp
