@@ -16,16 +16,16 @@
 class GameBoard{
 private:
     std::vector<std::vector<char>> board;
-    
     int checkMatch(std::function<int(int)>, std::function<int(int)>, char) const;
-
+    int checkWin(int, int, char) const;
+    bool full;
 public:
     GameBoard(int,int);
     void printBoard() const;
-    bool putCoin(char,int, bool);
+    int putCoin(char,int, bool);
     int getWidth() const;
     int getHeight() const;
-    bool checkWin(int, int, char) const;
+    bool isFull() const;
 };
 
 #endif /* board_hpp */

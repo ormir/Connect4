@@ -27,18 +27,18 @@ void GameBoard::printBoard() const {
     std::cout << std::endl;
 }
 
-bool GameBoard::putCoin(char n, int col, bool write) {
+int GameBoard::putCoin(char n, int col, bool write) {
     col--;
     int coinRow = 0;
     if (col >  board.begin()->size() || col < 0) {
         std::cout << "Colum " << col << " doesn't exist" << std::endl;
-        return false;
+        return -1;
     } else if ((*(board.begin()))[col] != '.'){
-        std::cout << "Column full" << std::endl;
-        return false;
+        std::cout << "Column "<< col <<" full" << std::endl;
+        return -1;
     }
   
-    //Zelle gecacht im Pointer previous
+    // Cell cached in previous Pointer
     for(auto row = board.begin(); row != board.end(); row++){
         if ((*row)[col]!='.'){
             if(write) (*(--row))[col] = n; //name of player being inserted
@@ -52,19 +52,32 @@ bool GameBoard::putCoin(char n, int col, bool write) {
         coinRow++;
     }
     
-    checkWin(col, --coinRow, n);
-    return true;
+    // Check if board is full
+    bool hasEmptyPos = false;
+    for (auto it = board[0].begin(); it != board[0].end(); it++) {
+        if (*it == '.') {
+            hasEmptyPos = true;
+            break;
+        }
+    }
+    full = !hasEmptyPos;
+    
+    return checkWin(col, --coinRow, n);
+}
+
+bool GameBoard::isFull() const {
+    return full;
 }
 
 int GameBoard::getWidth() const{
-    return board.begin()->size();
+    return (int)board.begin()->size();
 }
 
 int GameBoard::getHeight() const {
-    return board.size();
+    return (int)board.size();
 }
 
-bool GameBoard::checkWin(int col, int row, char n) const {
+int GameBoard::checkWin(int col, int row, char n) const {
     int maxMatch = 0;
     int hMatch = 0; //horizontal Match
     int vMatch = 0;
@@ -73,7 +86,7 @@ bool GameBoard::checkWin(int col, int row, char n) const {
     
     // Horizontal
     //&col - call by reference to save memory
-    auto horisontalCol = [&col](int i){return col+i;};
+    auto horisontalCol = [&col](int i){ return col+i; };
     auto horisontalRow = [&row](int i) { return row; };
     
     // Vertical
@@ -88,40 +101,21 @@ bool GameBoard::checkWin(int col, int row, char n) const {
     auto backDiagonalCol = [&col](int i) { return col+i; };
     auto backDiagonalRow = [&row](int i) { return row-i; };
     
-//    if(checkMatch(horisontalRow, horisontalCol, n) == 3 ||
-//       checkMatch(verticalRow, verticalCol, n) == 3 ||
-//       checkMatch(diagonalRow, diagonalCol, n) == 3 ||
-//       checkMatch(backDiagonalRow, backDiagonalCol, n) == 3){
-//        std::cout << "WIN " << n << std::endl;
-//        return true;
-//    }
-    
     hMatch = checkMatch(horisontalRow, horisontalCol, n);
     vMatch = checkMatch(verticalRow, verticalCol, n);
     dMatch = checkMatch(diagonalRow, diagonalCol, n);
     bdMatch = checkMatch(backDiagonalRow, backDiagonalCol, n);
     
-    if (hMatch > maxMatch) {
-        maxMatch = hMatch;
-    }
+    if(maxMatch < hMatch) { maxMatch = hMatch; }
+    if(maxMatch < vMatch) { maxMatch = vMatch; }
+    if(maxMatch < dMatch) { maxMatch = dMatch; }
+    if(maxMatch < bdMatch) { maxMatch = bdMatch; }
     
-    if(vMatch > maxMatch){
-        maxMatch = vMatch;
-    }
-
-    if(dMatch > maxMatch){
-        maxMatch = dMatch;
-    }
-    
-    if(bdMatch > maxMatch){
-        maxMatch = bdMatch;
-    }
-    
-    return false;
+    return maxMatch;
 }
 
 int GameBoard::checkMatch(std::function<int(int)> funRow, std::function<int(int)> funCol, char n) const {
-    int matches = 0; // horisontal hits
+    int matches = 0;
     
     // Forward Check: horizontal, vertical, diagonal, back diagonal
     for(int i = 1; i < 4; i++) {

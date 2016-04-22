@@ -29,12 +29,27 @@ Computer::Computer(const char &n):
 Player(n) {}
 
 void Computer::putCoin(GameBoard &board) {
-    // AI
-//    board.putCoin(name, std::rand()%board.getWidth());
+    int bestMax = -1;
+    std::vector<int> posCol; // possible colms
+
     for(int col = 0; col < board.getWidth(); col++) {
-        board.putCoin(name, col, false);
-        
+        int colMax = board.putCoin(name, ++col, false);
+        if (bestMax < colMax) {
+            posCol.empty();
+            posCol.push_back(col);
+            bestMax = colMax;
+        } else if (bestMax >= 0 && bestMax == colMax) {
+            posCol.push_back(col);
+        }
     }
     
-//    board.checkWin(&col, <#int#>, name);
+    if (posCol.size() == 0) {
+        std::cout << "Computer '" << name << "' couldn't find any colum" << std::endl;
+    } else {
+        srand((unsigned int)time(NULL));
+        int putCol = (posCol.size() == 1) ? posCol[0] : posCol[std::rand()%posCol.size()];
+        putCol ++;
+        std::cout << name << ": " << putCol << std::endl;
+        board.putCoin(name, putCol, true);
+    }
 }

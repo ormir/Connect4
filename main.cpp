@@ -39,16 +39,15 @@ int main(int argc, const char * argv[]) {
         p2 = new Computer(name);
     }
     
-    while (true) {
+    while (!gameboard.isFull()) {
         p1->putCoin(gameboard);
+        gameboard.printBoard();
         p2->putCoin(gameboard);
         gameboard.printBoard();
     }
     
     delete p1;
     delete p2;
-    
-    gameboard.printBoard();
     return 0;
 }
 

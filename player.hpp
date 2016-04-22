@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <vector>
 #include <iostream>
+#include <time.h>
 #include "board.hpp"
 
 class Player{
