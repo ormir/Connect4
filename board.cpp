@@ -61,27 +61,11 @@ int GameBoard::getWidth() const{
 }
 
 bool GameBoard::checkWin(int col, int row, char n) const {
-
-    // Horisontal
-    auto horisontalCol = [&col](int i) { return col+i; };
-    auto horisontalRow = [&row](int i) { return row; };
-    
-    // Vertical
-    auto verticalCol = [&col](int i) { return col; };
-    auto verticalRow = [&row](int i) { return row+i; };
-    
-    // Diagonal
-    auto diagonalCol = [&col](int i) { return col+i; };
-    auto diagonalRow = [&row](int i) { return row+i; };
-    
-    // Back Diagonal
-    auto backDiagonalCol = [&col](int i) { return col+i; };
-    auto backDiagonalRow = [&row](int i) { return row-i; };
-    
-    if(checkLambda(horisontalRow, horisontalCol, n) ||
-       checkLambda(verticalRow, verticalCol, n) ||
-       checkLambda(diagonalRow, diagonalCol, n) ||
-       checkLambda(backDiagonalRow, backDiagonalCol, n)){
+   
+    if (checkHorisontal(col, row, n) ||
+        checkVertical(col, row, n) ||
+        checkDiagonal(col, row, n) ||
+        checkBackDiagonal(col, row, n)) {
         std::cout << "WIN " << n << std::endl;
         return true;
     }
@@ -89,14 +73,13 @@ bool GameBoard::checkWin(int col, int row, char n) const {
     return false;
 }
 
-bool GameBoard::checkLambda(std::function<int(int)> funRow, std::function<int(int)> funCol, char n) const {
+bool GameBoard::checkHorisontal(int col, int row, char n) const {
     int hits = 0; // horisontal hits
     
     // Horisontal right Check
     for(int i = 1; i < 4; i++) {
-        if(funRow(i) < board.size() &&
-           funCol(i) < board.begin()->size() &&
-           board[funRow(i)][funCol(i)] == n) {
+        if(col + i < board.begin()->size() &&
+           board[row][col+i] == n) {
             hits ++;
         } else {
             break;
@@ -105,10 +88,92 @@ bool GameBoard::checkLambda(std::function<int(int)> funRow, std::function<int(in
     
     // Horisontal left Check
     for(int i = 1; i < 4; i++) {
-        if(funRow(-i) >= 0 &&
-           funRow(-i)< board.size() &&
-           funCol(-i) >= 0 &&
-           board[funRow(-i)][funCol(-i)] == n) {
+        if(col - i >= 0 &&
+           board[row][col-i] == n) {
+            hits ++;
+        } else {
+            break;
+        }
+    }
+    
+    if (hits == 3) return true;
+    return false;
+}
+
+bool GameBoard::checkVertical(int col, int row, char n) const {
+    int hits = 0;
+    // Vertical down
+    for(int i = 1; i < 4; i++) {
+        if(row + i < board.size() &&
+           board[row+i][col] == n) {
+            hits ++;
+        } else {
+            break;
+        }
+    }
+    
+    // Vertical up
+    for(int i = 1; i < 4; i++) {
+        if(row - i >= 0 &&
+           board[row-i][col] == n) {
+            hits ++;
+        } else {
+            break;
+        }
+    }
+    
+    if (hits == 3) return true;
+    return false;
+}
+
+bool GameBoard::checkDiagonal(int col, int row, char n) const {
+    int hits = 0;
+    
+    // Diagonal down
+    for(int i = 1; i < 4; i++) {
+        if(row + i < board.size() &&
+           col + i < board.begin()->size() &&
+           board[row+i][col+i] == n) {
+            hits ++;
+        } else {
+            break;
+        }
+    }
+    
+    // Diagonal up
+    for(int i = 1; i < 4; i++) {
+        if(row - i >= 0 &&
+           col - i >= 0 &&
+           board[row-i][col-i] == n) {
+            hits ++;
+        } else {
+            break;
+        }
+    }
+    
+    if (hits == 3) return true;
+    return false;
+}
+
+bool GameBoard::checkBackDiagonal(int col, int row, char n) const {
+    int hits = 0;
+    
+    // Back Diagonal down
+    for(int i = 1; i < 4; i++) {
+        if(row - i >= 0 &&
+           col + i < board.begin()->size() &&
+           board[row-i][col+i] == n) {
+            hits ++;
+        } else {
+            break;
+        }
+    }
+    
+    // Back Diagonal up
+    for(int i = 1; i < 4; i++) {
+        if(row + i < board.size() &&
+           col - i >= 0 &&
+           board[row+i][col-i] == n) {
             hits ++;
         } else {
             break;
