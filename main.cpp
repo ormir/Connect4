@@ -40,11 +40,19 @@ int main(int argc, const char * argv[]) {
     }
     
     while (!gameboard.isFull()) {
-        p1->putCoin(gameboard);
+        if (p1->putCoin(gameboard)) {
+            std::cout << "WIN " << p1->getName() << std::endl;
+            break;
+        }
         gameboard.printBoard();
-        p2->putCoin(gameboard);
+        if(p2->putCoin(gameboard)) {
+            std::cout << "WIN " << p2->getName() << std::endl;
+            break;
+        }
         gameboard.printBoard();
     }
+    
+    gameboard.printBoard();
     
     delete p1;
     delete p2;

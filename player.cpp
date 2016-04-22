@@ -11,24 +11,30 @@
 Player::Player(const char &n):
 name(n) {}
 
-void Player::putCoin(GameBoard& board) {
+bool Player::putCoin(GameBoard& board) {
     int col = -1;
     std::cout << name << ": ";
     std::cin >> col;
-    board.putCoin(name, col, true);
+    return board.putCoin(name, col, true) == 3 ? true : false;
 }
 
-Player::~Player() {
-    std::cout << "Deleted player" << std::endl;
+char Player::getName() const {
+    return name;
 }
+
+Player::~Player() {}
 
 Human::Human(const char &n):
 Player(n) {}
 
+Human::~Human(){}
+
 Computer::Computer(const char &n):
 Player(n) {}
 
-void Computer::putCoin(GameBoard &board) {
+Computer::~Computer(){}
+
+bool Computer::putCoin(GameBoard &board) {
     int bestMax = -1;
     std::vector<int> posCol; // possible colms
 
@@ -50,6 +56,7 @@ void Computer::putCoin(GameBoard &board) {
         int putCol = (posCol.size() == 1) ? posCol[0] : posCol[std::rand()%posCol.size()];
         putCol ++;
         std::cout << name << ": " << putCol << std::endl;
-        board.putCoin(name, putCol, true);
+        return board.putCoin(name, putCol, true) == 3 ? true : false;
     }
+    return false;
 }

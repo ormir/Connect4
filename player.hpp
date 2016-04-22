@@ -20,19 +20,22 @@ protected:
     char name;
     Player(const char&);
 public:
-    virtual void putCoin(GameBoard&);
+    virtual bool putCoin(GameBoard&);
+    char getName() const;
     virtual ~Player();
 };
 
 class Human : public Player {
 public:
     Human(const char&);
+    ~Human();
 };
 
 class Computer : public Player {
 public:
     Computer(const char&);
-    void putCoin(GameBoard&);
+    bool putCoin(GameBoard&);
+    ~Computer();
 };
 
 #endif /* player_hpp */
