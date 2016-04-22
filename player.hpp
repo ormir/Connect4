@@ -17,8 +17,8 @@
 class Player{
 protected:
     char name;
-public:
     Player(const char&);
+public:
     void putCoin(GameBoard&);
     virtual ~Player();
 };

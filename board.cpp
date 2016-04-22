@@ -27,7 +27,7 @@ void GameBoard::printBoard() const {
     std::cout << std::endl;
 }
 
-bool GameBoard::putCoin(char n, int col) {
+bool GameBoard::putCoin(char n, int col, bool write) {
     col--;
     int coinRow = 0;
     if (col >  board.begin()->size() || col < 0) {
@@ -41,13 +41,13 @@ bool GameBoard::putCoin(char n, int col) {
     //Zelle gecacht im Pointer previous
     for(auto row = board.begin(); row != board.end(); row++){
         if ((*row)[col]!='.'){
-            (*(--row))[col] = n; //name of player being inserted
+            if(write) (*(--row))[col] = n; //name of player being inserted
             break;
         }
         
         //the bottom of the board
         if(row == --board.end()){
-            (*row)[col] = n;
+            if(write) (*row)[col] = n;
         }
         coinRow++;
     }
@@ -60,10 +60,15 @@ int GameBoard::getWidth() const{
     return board.begin()->size();
 }
 
+int GameBoard::getHeight() const {
+    return board.size();
+}
+
 bool GameBoard::checkWin(int col, int row, char n) const {
 
-    // Horisontal
-    auto horisontalCol = [&col](int i) { return col+i; };
+    // Horizontal
+    //&col - call by reference to save memory
+    auto horisontalCol = [&col](int i){return col+i;};
     auto horisontalRow = [&row](int i) { return row; };
     
     // Vertical
@@ -78,10 +83,10 @@ bool GameBoard::checkWin(int col, int row, char n) const {
     auto backDiagonalCol = [&col](int i) { return col+i; };
     auto backDiagonalRow = [&row](int i) { return row-i; };
     
-    if(checkLambda(horisontalRow, horisontalCol, n) ||
-       checkLambda(verticalRow, verticalCol, n) ||
-       checkLambda(diagonalRow, diagonalCol, n) ||
-       checkLambda(backDiagonalRow, backDiagonalCol, n)){
+    if(checkMatch(horisontalRow, horisontalCol, n) == 3 ||
+       checkMatch(verticalRow, verticalCol, n) == 3 ||
+       checkMatch(diagonalRow, diagonalCol, n) == 3 ||
+       checkMatch(backDiagonalRow, backDiagonalCol, n) == 3){
         std::cout << "WIN " << n << std::endl;
         return true;
     }
@@ -89,32 +94,31 @@ bool GameBoard::checkWin(int col, int row, char n) const {
     return false;
 }
 
-bool GameBoard::checkLambda(std::function<int(int)> funRow, std::function<int(int)> funCol, char n) const {
-    int hits = 0; // horisontal hits
+int GameBoard::checkMatch(std::function<int(int)> funRow, std::function<int(int)> funCol, char n) const {
+    int matches = 0; // horisontal hits
     
-    // Horisontal right Check
+    // Forward Check: horizontal, vertical, diagonal, back diagonal
     for(int i = 1; i < 4; i++) {
         if(funRow(i) < board.size() &&
            funCol(i) < board.begin()->size() &&
            board[funRow(i)][funCol(i)] == n) {
-            hits ++;
+            matches ++;
         } else {
             break;
         }
     }
     
-    // Horisontal left Check
+    // Backward Check: horizontal, vertical, diagonal, back diagonal
     for(int i = 1; i < 4; i++) {
         if(funRow(-i) >= 0 &&
            funRow(-i)< board.size() &&
            funCol(-i) >= 0 &&
            board[funRow(-i)][funCol(-i)] == n) {
-            hits ++;
+            matches ++;
         } else {
             break;
         }
     }
     
-    if (hits == 3) return true;
-    return false;
+    return matches;
 }
