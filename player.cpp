@@ -31,9 +31,9 @@ Player(n) {}
 void Computer::putCoin(GameBoard &board) {
     // AI
 //    board.putCoin(name, std::rand()%board.getWidth());
-    for(int row = 0; row < board.getHeight(); row++)
     for(int col = 0; col < board.getWidth(); col++) {
-        
+        board.putCoin(name, col, false);
     }
+    
 //    board.checkWin(&col, <#int#>, name);
 }

@@ -19,7 +19,7 @@ protected:
     char name;
     Player(const char&);
 public:
-    void putCoin(GameBoard&);
+    virtual void putCoin(GameBoard&);
     virtual ~Player();
 };
 
