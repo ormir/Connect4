@@ -41,10 +41,11 @@ bool GameBoard::putCoin(char n, int col) {
     //Zelle gecacht im Pointer previous
     for(auto row = board.begin(); row != board.end(); row++){
         if ((*row)[col]!='.'){
-            (*(--row))[col] = n;
+            (*(--row))[col] = n; //name of player being inserted
             break;
         }
         
+        //the bottom of the board
         if(row == --board.end()){
             (*row)[col] = n;
         }
