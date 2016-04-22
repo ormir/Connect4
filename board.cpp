@@ -65,7 +65,12 @@ int GameBoard::getHeight() const {
 }
 
 bool GameBoard::checkWin(int col, int row, char n) const {
-
+    int maxMatch = 0;
+    int hMatch = 0; //horizontal Match
+    int vMatch = 0;
+    int dMatch = 0;
+    int bdMatch = 0;
+    
     // Horizontal
     //&col - call by reference to save memory
     auto horisontalCol = [&col](int i){return col+i;};
@@ -83,12 +88,33 @@ bool GameBoard::checkWin(int col, int row, char n) const {
     auto backDiagonalCol = [&col](int i) { return col+i; };
     auto backDiagonalRow = [&row](int i) { return row-i; };
     
-    if(checkMatch(horisontalRow, horisontalCol, n) == 3 ||
-       checkMatch(verticalRow, verticalCol, n) == 3 ||
-       checkMatch(diagonalRow, diagonalCol, n) == 3 ||
-       checkMatch(backDiagonalRow, backDiagonalCol, n) == 3){
-        std::cout << "WIN " << n << std::endl;
-        return true;
+//    if(checkMatch(horisontalRow, horisontalCol, n) == 3 ||
+//       checkMatch(verticalRow, verticalCol, n) == 3 ||
+//       checkMatch(diagonalRow, diagonalCol, n) == 3 ||
+//       checkMatch(backDiagonalRow, backDiagonalCol, n) == 3){
+//        std::cout << "WIN " << n << std::endl;
+//        return true;
+//    }
+    
+    hMatch = checkMatch(horisontalRow, horisontalCol, n);
+    vMatch = checkMatch(verticalRow, verticalCol, n);
+    dMatch = checkMatch(diagonalRow, diagonalCol, n);
+    bdMatch = checkMatch(backDiagonalRow, backDiagonalCol, n);
+    
+    if (hMatch > maxMatch) {
+        maxMatch = hMatch;
+    }
+    
+    if(vMatch > maxMatch){
+        maxMatch = vMatch;
+    }
+
+    if(dMatch > maxMatch){
+        maxMatch = dMatch;
+    }
+    
+    if(bdMatch > maxMatch){
+        maxMatch = bdMatch;
     }
     
     return false;

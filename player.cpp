@@ -33,6 +33,7 @@ void Computer::putCoin(GameBoard &board) {
 //    board.putCoin(name, std::rand()%board.getWidth());
     for(int col = 0; col < board.getWidth(); col++) {
         board.putCoin(name, col, false);
+        
     }
     
 //    board.checkWin(&col, <#int#>, name);

@@ -26,6 +26,6 @@ public:
     int getWidth() const;
     int getHeight() const;
     bool checkWin(int, int, char) const;
-    };
+};
 
 #endif /* board_hpp */
